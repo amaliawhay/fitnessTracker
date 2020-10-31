@@ -1,18 +1,28 @@
 const workoutTypeSelect = document.querySelector("#type");
 const cardioForm = document.querySelector(".cardio-form");
-const resistanceForm = document.querySelector(".resistance-form");
-const cardioNameInput = document.querySelector("#cardio-name");
+const resistanceForm = document.querySelector(
+  ".resistance-form"
+);
+const cardioNameInput = document.querySelector(
+  "#cardio-name"
+);
 const nameInput = document.querySelector("#name");
 const weightInput = document.querySelector("#weight");
 const setsInput = document.querySelector("#sets");
 const repsInput = document.querySelector("#reps");
 const durationInput = document.querySelector("#duration");
-const resistanceDurationInput = document.querySelector("#resistance-duration");
+const resistanceDurationInput = document.querySelector(
+  "#resistance-duration"
+);
 const distanceInput = document.querySelector("#distance");
-const completeButton = document.querySelector("button.complete");
-const addButton = document.querySelector("button.add-another");
+const completeButton = document.querySelector(
+  "button.complete"
+);
+const addButton = document.querySelector(
+  "button.add-another"
+);
 const toast = document.querySelector("#toast");
-const newWorkout = document.querySelector(".new-workout")
+const newWorkout = document.querySelector(".new-workout");
 
 let workoutType = null;
 let shouldNavigateAway = false;
@@ -21,13 +31,12 @@ async function initExercise() {
   let workout;
 
   if (location.search.split("=")[1] === undefined) {
-    workout = await API.createWorkout()
-    console.log(workout)
+    workout = await API.createWorkout();
+    console.log(workout);
   }
   if (workout) {
     location.search = "?id=" + workout._id;
   }
-
 }
 
 initExercise();
@@ -103,18 +112,25 @@ async function handleFormSubmit(event) {
   if (workoutType === "cardio") {
     workoutData.type = "cardio";
     workoutData.name = cardioNameInput.value.trim();
-    workoutData.distance = Number(distanceInput.value.trim());
-    workoutData.duration = Number(durationInput.value.trim());
+    workoutData.distance = Number(
+      distanceInput.value.trim()
+    );
+    workoutData.duration = Number(
+      durationInput.value.trim()
+    );
   } else if (workoutType === "resistance") {
     workoutData.type = "resistance";
     workoutData.name = nameInput.value.trim();
     workoutData.weight = Number(weightInput.value.trim());
     workoutData.sets = Number(setsInput.value.trim());
     workoutData.reps = Number(repsInput.value.trim());
-    workoutData.duration = Number(resistanceDurationInput.value.trim());
+    workoutData.duration = Number(
+      resistanceDurationInput.value.trim()
+    );
   }
 
   await API.addExercise(workoutData);
+  console.log(workoutData);
   clearInputs();
   toast.classList.add("success");
 }
@@ -138,10 +154,15 @@ function clearInputs() {
 }
 
 if (workoutTypeSelect) {
-  workoutTypeSelect.addEventListener("change", handleWorkoutTypeChange);
+  workoutTypeSelect.addEventListener(
+    "change",
+    handleWorkoutTypeChange
+  );
 }
 if (completeButton) {
-  completeButton.addEventListener("click", function (event) {
+  completeButton.addEventListener("click", function (
+    event
+  ) {
     shouldNavigateAway = true;
     handleFormSubmit(event);
   });
@@ -149,8 +170,13 @@ if (completeButton) {
 if (addButton) {
   addButton.addEventListener("click", handleFormSubmit);
 }
-toast.addEventListener("animationend", handleToastAnimationEnd);
+toast.addEventListener(
+  "animationend",
+  handleToastAnimationEnd
+);
 
 document
   .querySelectorAll("input")
-  .forEach(element => element.addEventListener("input", validateInputs));
+  .forEach((element) =>
+    element.addEventListener("input", validateInputs)
+  );

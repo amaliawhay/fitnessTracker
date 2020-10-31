@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const Workout = require("../models/workouts.js");
 var path = require("path");
-const mongojs = require("mongojs");
+//const mongojs = require("mongojs");
 
 router.get("/exercise?", function (req, res) {
   res.sendFile(
